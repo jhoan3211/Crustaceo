@@ -76,6 +76,7 @@ public class UserService implements UserDetailsService {
                                 .email(request.getEmail())
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .role(Role.CUSTOMER)
+                                .active(true)
                                 .build();
 
                 userRepository.save(user);
