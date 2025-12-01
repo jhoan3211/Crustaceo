@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Table(name="users")
 @Data
 @Builder
 @AllArgsConstructor
@@ -36,8 +37,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Builder.Default
     @Column(name = "active", nullable = false)
-    private Boolean active;
+    private Boolean active = true;
 
     public UserEntity() {
         super();

@@ -1,6 +1,5 @@
 package com.cc.api.config.jwt;
 
-import com.cc.api.config.jwt.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,9 +39,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             if (jwtProvider.validateToken(token)) {
+
                 UsernamePasswordAuthenticationToken auth =
                         (UsernamePasswordAuthenticationToken) jwtProvider.getAuthentication(token);
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                auth.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
