@@ -46,12 +46,11 @@ public class UserService implements UserDetailsService {
                 UserEntity user = (UserEntity) authentication.getPrincipal();
                 String token = jwtProvider.generateToken(user);
 
-                // ✅ CAMBIO: Agregar id, name y role
                 UserResponse userResponse = UserResponse.builder()
-                                .id(user.getId()) // ← AGREGAR
-                                .name(user.getName()) // ← AGREGAR
+                                .id(user.getId())
+                                .name(user.getName())
                                 .email(user.getEmail())
-                                .role(user.getRole()) // ← AGREGAR
+                                .role(user.getRole())
                                 .build();
 
                 LoginResponseDTO response = LoginResponseDTO.builder()
@@ -67,14 +66,13 @@ public class UserService implements UserDetailsService {
 
                 if (userRepository.existsByEmail(request.getEmail())) {
                         LoginResponseDTO error = LoginResponseDTO.builder()
-                                        .message("Usuario ya registrado") // ← Mejor mensaje
+                                        .message("Usuario ya registrado")
                                         .build();
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
                 }
 
-                // ✅ CAMBIO: Usar builder y agregar name
                 UserEntity user = UserEntity.builder()
-                                .name(request.getName()) // ← AGREGAR
+                                .name(request.getName())
                                 .email(request.getEmail())
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .role(Role.CUSTOMER)
@@ -84,18 +82,17 @@ public class UserService implements UserDetailsService {
 
                 String token = jwtProvider.generateToken(user);
 
-                // ✅ CAMBIO: Agregar id, name y role
                 UserResponse userResponse = UserResponse.builder()
-                                .id(user.getId()) // ← AGREGAR
-                                .name(user.getName()) // ← AGREGAR
+                                .id(user.getId())
+                                .name(user.getName())
                                 .email(user.getEmail())
-                                .role(user.getRole()) // ← AGREGAR
+                                .role(user.getRole())
                                 .build();
 
                 LoginResponseDTO response = LoginResponseDTO.builder()
                                 .token(token)
                                 .user(userResponse)
-                                .message("Usuario registrado exitosamente") // ← Mejor mensaje
+                                .message("Usuario registrado exitosamente")
                                 .build();
 
                 return ResponseEntity.status(HttpStatus.CREATED).body(response);

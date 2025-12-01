@@ -5,13 +5,10 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -23,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    private static final String SECRET_KEY = "MI_CLAVE_SUPER_SECRETA_DE_256_BITS_PARA_JWT_SEGURA!!";
+    private static final String SECRET_KEY = "EDFGSFFWEAJWAHFGHIE55435UIHGYU3V6425V2G4K6G4UYK3F5G236245JK";
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
 
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -73,10 +70,5 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
