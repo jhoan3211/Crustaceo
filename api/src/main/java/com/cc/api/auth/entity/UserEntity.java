@@ -39,7 +39,6 @@ public class UserEntity implements UserDetails {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
-
     public UserEntity() {
         super();
     }

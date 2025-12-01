@@ -20,84 +20,84 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 @RequiredArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtProvider jwtProvider;
-    private final AuthenticationManager authenticationManager;
+        private final UserRepository userRepository;
+        private final PasswordEncoder passwordEncoder;
+        private final JwtProvider jwtProvider;
+        private final AuthenticationManager authenticationManager;
 
-
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
-
-    public ResponseEntity<LoginResponseDTO> login(UserRequest request) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserEntity user = (UserEntity) authentication.getPrincipal();
-        String token = jwtProvider.generateToken(user);
-
-        UserResponse userResponse = UserResponse.builder()
-                .email(user.getEmail())
-                .build();
-
-        LoginResponseDTO response = LoginResponseDTO.builder()
-                .token(token)
-                .user(userResponse)
-                .message("Login exitoso")
-                .build();
-
-        return ResponseEntity.ok(response);
-    }
-
-
-    public ResponseEntity<LoginResponseDTO> register(UserRequest request) {
-
-        if (userRepository.existsByEmail(request.getEmail())) {
-            LoginResponseDTO error = LoginResponseDTO.builder()
-                    .message("usuario ya registrado")
-                    .build();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        @Override
+        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+                return userRepository.findByEmail(email)
+                                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 
-        UserEntity user = new UserEntity();
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.CUSTOMER);
+        public ResponseEntity<LoginResponseDTO> login(UserRequest request) {
 
-        userRepository.save(user);
+                Authentication authentication = authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(
+                                                request.getEmail(),
+                                                request.getPassword()));
 
-        String token = jwtProvider.generateToken(user);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                UserEntity user = (UserEntity) authentication.getPrincipal();
+                String token = jwtProvider.generateToken(user);
 
-        UserResponse userResponse = UserResponse.builder()
-                .email(user.getEmail())
-                .build();
+                // ✅ CAMBIO: Agregar id, name y role
+                UserResponse userResponse = UserResponse.builder()
+                                .id(user.getId()) // ← AGREGAR
+                                .name(user.getName()) // ← AGREGAR
+                                .email(user.getEmail())
+                                .role(user.getRole()) // ← AGREGAR
+                                .build();
 
-        LoginResponseDTO response = LoginResponseDTO.builder()
-                .token(token)
-                .user(userResponse)
-                .message("")
-                .build();
+                LoginResponseDTO response = LoginResponseDTO.builder()
+                                .token(token)
+                                .user(userResponse)
+                                .message("Login exitoso")
+                                .build();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+                return ResponseEntity.ok(response);
+        }
 
+        public ResponseEntity<LoginResponseDTO> register(UserRequest request) {
 
+                if (userRepository.existsByEmail(request.getEmail())) {
+                        LoginResponseDTO error = LoginResponseDTO.builder()
+                                        .message("Usuario ya registrado") // ← Mejor mensaje
+                                        .build();
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+                }
 
+                // ✅ CAMBIO: Usar builder y agregar name
+                UserEntity user = UserEntity.builder()
+                                .name(request.getName()) // ← AGREGAR
+                                .email(request.getEmail())
+                                .password(passwordEncoder.encode(request.getPassword()))
+                                .role(Role.CUSTOMER)
+                                .build();
 
+                userRepository.save(user);
 
+                String token = jwtProvider.generateToken(user);
+
+                // ✅ CAMBIO: Agregar id, name y role
+                UserResponse userResponse = UserResponse.builder()
+                                .id(user.getId()) // ← AGREGAR
+                                .name(user.getName()) // ← AGREGAR
+                                .email(user.getEmail())
+                                .role(user.getRole()) // ← AGREGAR
+                                .build();
+
+                LoginResponseDTO response = LoginResponseDTO.builder()
+                                .token(token)
+                                .user(userResponse)
+                                .message("Usuario registrado exitosamente") // ← Mejor mensaje
+                                .build();
+
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
 }
