@@ -1,0 +1,26 @@
+services:
+
+  # PostgreSQL para usuarios
+  crustaciodb:
+    image: postgres
+    environment:
+      POSTGRES_USER: Crustacio
+      POSTGRES_PASSWORD: Plankton
+      POSTGRES_DB: Crustaciodb
+    ports:
+      - "5432:5432"
+    networks:
+      - microservices-net
+    volumes:
+      - crustaciodb_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U Crustacio -d Crustaciodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+networks:
+  microservices-net:
+
+volumes:
+  crustaciodb_data:

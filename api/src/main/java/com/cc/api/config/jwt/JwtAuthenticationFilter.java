@@ -43,13 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken auth =
                         (UsernamePasswordAuthenticationToken) jwtProvider.getAuthentication(token);
 
-                auth.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-
         } catch (Exception e) {
             log.error("Error al procesar el JWT: {}", e.getMessage());
         }

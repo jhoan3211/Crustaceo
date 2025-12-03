@@ -21,12 +21,6 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-  web:
-    cors:
-      allowed-origins: "http://localhost:3000"
-      allowed-headers: "*"
-      allowed-methods: "*"
-
 
 springdoc:
   api-docs:

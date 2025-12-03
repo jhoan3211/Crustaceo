@@ -1,6 +1,7 @@
 package com.cc.api.auth.service;
 
-import com.cc.api.auth.dto.request.UserRequest;
+import com.cc.api.auth.dto.request.UserLoginRequest;
+import com.cc.api.auth.dto.request.UserRegisterRequest;
 import com.cc.api.auth.dto.response.LoginResponseDTO;
 import com.cc.api.auth.dto.response.UserResponse;
 import com.cc.api.auth.entity.UserEntity;
@@ -8,8 +9,6 @@ import com.cc.api.auth.enums.Role;
 import com.cc.api.auth.repository.UserRepository;
 import com.cc.api.config.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +28,7 @@ public class UserService implements UserDetailsService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 
-        public ResponseEntity<LoginResponseDTO> login(UserRequest request) {
+        public LoginResponseDTO login(UserLoginRequest request) {
 
                 UserEntity user = (UserEntity) loadUserByUsername(request.getEmail());
 
@@ -39,29 +38,19 @@ public class UserService implements UserDetailsService {
 
                 String token = jwtProvider.generateToken(user);
 
-                UserResponse userResponse = UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .email(user.getEmail())
-                        .role(user.getRole())
-                        .build();
+                UserResponse userResponse = buildUserResponse(user);
 
-                LoginResponseDTO response = LoginResponseDTO.builder()
+                return LoginResponseDTO.builder()
                         .token(token)
                         .user(userResponse)
                         .message("Login exitoso")
                         .build();
-
-                return ResponseEntity.ok(response);
         }
 
-        public ResponseEntity<LoginResponseDTO> register(UserRequest request) {
+        public LoginResponseDTO register(UserRegisterRequest request) {
 
                 if (userRepository.existsByEmail(request.getEmail())) {
-                        LoginResponseDTO error = LoginResponseDTO.builder()
-                                .message("Usuario ya registrado")
-                                .build();
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+                        throw new IllegalStateException("El correo ya está registrado");
                 }
 
                 UserEntity user = UserEntity.builder()
@@ -76,19 +65,22 @@ public class UserService implements UserDetailsService {
 
                 String token = jwtProvider.generateToken(user);
 
-                UserResponse userResponse = UserResponse.builder()
+                UserResponse userResponse = buildUserResponse(user);
+
+                return LoginResponseDTO.builder()
+                        .token(token)
+                        .user(userResponse)
+                        .message("Usuario registrado exitosamente")
+                        .build();
+        }
+
+
+        private UserResponse buildUserResponse(UserEntity user) {
+                return UserResponse.builder()
                         .id(user.getId())
                         .name(user.getName())
                         .email(user.getEmail())
                         .role(user.getRole())
                         .build();
-
-                LoginResponseDTO response = LoginResponseDTO.builder()
-                        .token(token)
-                        .user(userResponse)
-                        .message("Usuario registrado exitosamente")
-                        .build();
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 }
