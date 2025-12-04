@@ -17,7 +17,9 @@ public class ProductRequest {
 
     private String description;
 
+    private String category;
+
     private BigDecimal price;
 
-    private BigDecimal discount;
+    private String image;
 }

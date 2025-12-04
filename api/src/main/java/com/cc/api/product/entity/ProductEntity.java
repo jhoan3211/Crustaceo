@@ -25,14 +25,17 @@ public class ProductEntity {
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
+    @Column(name = "category", nullable = false)
+    private String category;
+
     @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "discount", nullable = false)
-    private BigDecimal discount;
+    @Column(name = "image", nullable = false)
+    private String image;
 
     @Override
     public final boolean equals(Object object) {
