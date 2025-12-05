@@ -13,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -47,6 +48,7 @@ public class UserService implements UserDetailsService {
                         .build();
         }
 
+        @Transactional
         public LoginResponseDTO register(UserRegisterRequest request) {
 
                 if (userRepository.existsByEmail(request.getEmail())) {
@@ -72,6 +74,12 @@ public class UserService implements UserDetailsService {
                         .user(userResponse)
                         .message("Usuario registrado exitosamente")
                         .build();
+        }
+
+        public Long getIdByEmail(String email) {
+                return userRepository.findByEmail(email)
+                        .map(UserEntity::getId)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 
 

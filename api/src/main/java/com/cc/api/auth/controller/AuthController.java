@@ -7,9 +7,13 @@ import com.cc.api.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,4 +33,6 @@ public class AuthController {
         LoginResponseDTO response = userService.register(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+
 }

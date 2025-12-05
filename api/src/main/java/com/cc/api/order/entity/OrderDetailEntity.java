@@ -32,4 +32,8 @@ public class OrderDetailEntity {
 
     @Column(precision = 19, scale = 2)
     private BigDecimal subtotal;
+
+    public String getId() {
+        return "O"+ order.getId() + "P" +product.getId();
+    }
 }
