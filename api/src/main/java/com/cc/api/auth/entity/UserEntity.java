@@ -1,6 +1,7 @@
 package com.cc.api.auth.entity;
 
 import com.cc.api.auth.enums.Role;
+import com.cc.api.order.entity.OrderEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -8,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +43,12 @@ public class UserEntity implements UserDetails {
     @Builder.Default
     @Column(name = "active", nullable = false)
     private Boolean active = true;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     public UserEntity() {
         super();
@@ -79,6 +87,22 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         return active;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<OrderEntity> orders;
+
+    @PrePersist
+    void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+        if (active == null) active = true;
+    }
+
+    @PreUpdate
+    void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Override

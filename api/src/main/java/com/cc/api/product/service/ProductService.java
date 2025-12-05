@@ -6,7 +6,10 @@ import com.cc.api.product.entity.ProductEntity;
 import com.cc.api.product.mapper.ProductMapper;
 import com.cc.api.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -30,11 +33,8 @@ public class ProductService {
     }
 
 
-
-
-
-
-
-
-
+    public List<ProductResponse> getAllProducts() {
+        List<ProductEntity> entities = productRepository.findAll();
+        return productMapper.toResponse(entities);
+    }
 }

@@ -8,6 +8,8 @@ import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
@@ -19,4 +21,6 @@ public interface ProductMapper {
     ProductEntity toEntity(ProductRequest request);
 
     ProductResponse toResponse(ProductEntity entity);
+
+    List<ProductResponse> toResponse(List<ProductEntity> entities);
 }

@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -25,13 +27,18 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping()
+    @DeleteMapping("/{productId}")
     public ResponseEntity<Void> delete(@Valid @PathVariable Long productId) {
         productService.deleteProductById(productId);
         return ResponseEntity.noContent().build();
     }
 
-    
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
 
 
 }
