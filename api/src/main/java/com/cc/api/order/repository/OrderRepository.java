@@ -1,8 +1,11 @@
 package com.cc.api.order.repository;
 
+import com.cc.api.order.Enums.OrderStatus;
 import com.cc.api.order.dto.response.OrderResponse;
 import com.cc.api.order.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +15,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     List<OrderEntity> findByUserId(Long userId);
 
+
+    List<OrderEntity> findByUserIdAndStatusIn(Long userId, List<OrderStatus> statuses);
 }
