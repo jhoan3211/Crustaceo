@@ -1,11 +1,8 @@
 package com.cc.api.order.repository;
 
-import com.cc.api.order.Enums.OrderStatus;
-import com.cc.api.order.dto.response.OrderResponse;
+import com.cc.api.order.enums.OrderStatus;
 import com.cc.api.order.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

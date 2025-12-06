@@ -2,7 +2,7 @@ package com.cc.api.order.service;
 
 import com.cc.api.auth.entity.UserEntity;
 import com.cc.api.auth.service.UserService;
-import com.cc.api.order.Enums.OrderStatus;
+import com.cc.api.order.enums.OrderStatus;
 import com.cc.api.order.dto.request.OrderDetailRequest;
 import com.cc.api.order.dto.request.OrderRequest;
 import com.cc.api.order.dto.response.OrderResponse;
@@ -12,7 +12,6 @@ import com.cc.api.order.mapper.OrderMapper;
 import com.cc.api.order.repository.OrderRepository;
 import com.cc.api.product.entity.ProductEntity;
 import com.cc.api.product.service.ProductService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

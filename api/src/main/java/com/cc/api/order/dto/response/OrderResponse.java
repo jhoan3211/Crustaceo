@@ -1,7 +1,7 @@
 package com.cc.api.order.dto.response;
 
 import com.cc.api.auth.dto.response.UserOrderResponse;
-import com.cc.api.order.Enums.OrderStatus;
+import com.cc.api.order.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

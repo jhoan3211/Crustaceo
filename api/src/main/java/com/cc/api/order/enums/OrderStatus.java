@@ -1,4 +1,4 @@
-package com.cc.api.order.Enums;
+package com.cc.api.order.enums;
 
 public enum OrderStatus {
 

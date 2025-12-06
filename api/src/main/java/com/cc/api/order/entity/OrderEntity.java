@@ -1,7 +1,7 @@
 package com.cc.api.order.entity;
 
 import com.cc.api.auth.entity.UserEntity;
-import com.cc.api.order.Enums.OrderStatus;
+import com.cc.api.order.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;

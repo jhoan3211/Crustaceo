@@ -1,26 +1,40 @@
 services:
 
-  # PostgreSQL para usuarios
+  # ======================================================================
+  # POSTGRESQL - Base de datos principal del sistema
+  # ======================================================================
   crustaciodb:
-    image: postgres
+    image: postgres:latest
+    container_name: crustacio-postgres
+
     environment:
       POSTGRES_USER: Crustacio
       POSTGRES_PASSWORD: Plankton
       POSTGRES_DB: Crustaciodb
+
     ports:
       - "5432:5432"
+
     networks:
       - microservices-net
+
     volumes:
-      - crustaciodb_data:/var/lib/postgresql/data
+      - crustaciodb_data:/var/lib/postgresql
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U Crustacio -d Crustaciodb"]
       interval: 10s
       timeout: 5s
       retries: 5
-      
+
+# ========================================================================
+# REDES
+# ========================================================================
 networks:
   microservices-net:
 
+# ========================================================================
+# VOLUMENES
+# ========================================================================
 volumes:
   crustaciodb_data:
