@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "4fc6f548-f0b2-4e13-b5bc-b237979cdd14",
+		"name": "DevWeb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38937987"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "auth/login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"jhoan@a.co\",\r\n    \"password\":\"User1234\"\r\n}\r\n/*\r\n{\r\n    \"email\":\"jhoan@gmail.com\",\r\n    \"password\":\"Cositas2\"\r\n}\r\n\r\n{\r\n    \"email\":\"jhoan.leandro@hotmail.com\",\r\n    \"password\":\"HolaQueHace1\"\r\n}\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "auth/login USER Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"jhoan.leandro@gmail.com\",\r\n    \"password\":\"HolaqueHce12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8090/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jhoan Ramirez\",\r\n    \"email\":\"jhoan@a.c\",\r\n    \"password\":\"User1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "get All users Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:8080/users"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n   \"name\": \"Salchipapas\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"salchipapas\",\r\n    \"price\": 14.0,\r\n    \"description\": \"Un festín irresistible de papas crujientes, salchichas jugosas y una variedad de salsas al mejor estilo del Crustáceo Cascarudo. La combinación perfecta que ha enamorado a clientes de todo Fondo de Bikini. Ideal para compartir o disfrutar en solitario.\"\r\n  }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{PRODUCTMS}}/product"
+					},
+					"response": []
+				},
+				{
+					"name": "Create product Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n   \"name\": \"Salchipapas\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"salchipapas\",\r\n    \"price\": 14.0,\r\n    \"description\": \"Un festín irresistible de papas crujientes, salchichas jugosas y una variedad de salsas al mejor estilo del Crustáceo Cascarudo. La combinación perfecta que ha enamorado a clientes de todo Fondo de Bikini. Ideal para compartir o disfrutar en solitario.\"\r\n  }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{PRODUCTMS}}/product"
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{PRODUCTMS}}/product/1"
+					},
+					"response": []
+				},
+				{
+					"name": "products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:8080/product"
+					},
+					"response": []
+				},
+				{
+					"name": "products by category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Producto1\",\r\n  \"description\": \"string\",\r\n  \"sku\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"category\": {\r\n    \"id\": 1\r\n  },\r\n  \"brand\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n\r\n    "
+						},
+						"url": "http://localhost:8080/api/product/category/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"Cra 45 # 90-20 Medellín\",\r\n  \"orderDetails\": [\r\n    {\r\n      \"productId\": 7,\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/order"
+					},
+					"response": []
+				},
+				{
+					"name": "my orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"Cra 45 # 90-20 Medellín\",\r\n  \"orderDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": 5,\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": 7,\r\n      \"quantity\": 4\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/order"
+					},
+					"response": []
+				},
+				{
+					"name": "my active orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"Cra 45 # 90-20 Medellín\",\r\n  \"orderDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": 5,\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": 7,\r\n      \"quantity\": 4\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/order/active"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{TOKEN}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
