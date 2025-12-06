@@ -36,7 +36,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"jhoan@a.co\",\r\n    \"password\":\"User1234\"\r\n}\r\n/*\r\n{\r\n    \"email\":\"jhoan@gmail.com\",\r\n    \"password\":\"Cositas2\"\r\n}\r\n\r\n{\r\n    \"email\":\"jhoan.leandro@hotmail.com\",\r\n    \"password\":\"HolaQueHace1\"\r\n}\r\n\r\n*/",
+							"raw": "{\r\n    \"email\":\"jhoan@a.c\",\r\n    \"password\":\"User1234\"\r\n}\r\n/*\r\n{\r\n    \"email\":\"jhoan@gmail.com\",\r\n    \"password\":\"Cositas2\"\r\n}\r\n\r\n{\r\n    \"email\":\"jhoan.leandro@hotmail.com\",\r\n    \"password\":\"HolaQueHace1\"\r\n}\r\n\r\n*/",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,36 +138,48 @@
 				{
 					"name": "Create product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\r\n   \"name\": \"Salchipapas\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"salchipapas\",\r\n    \"price\": 14.0,\r\n    \"description\": \"Un festín irresistible de papas crujientes, salchichas jugosas y una variedad de salsas al mejor estilo del Crustáceo Cascarudo. La combinación perfecta que ha enamorado a clientes de todo Fondo de Bikini. Ideal para compartir o disfrutar en solitario.\"\r\n  }\r\n",
+							"raw": "{\r\n  \"name\": \"{{name}}\",\r\n  \"category\": \"{{category}}\",\r\n  \"image\": \"{{image}}\",\r\n  \"price\": {{price}},\r\n  \"description\": \"{{description}}\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{PRODUCTMS}}/product"
+						"url": "http://localhost:8080/product"
 					},
 					"response": []
 				},
 				{
-					"name": "Create product Copy",
+					"name": "Create products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\r\n   \"name\": \"Salchipapas\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"salchipapas\",\r\n    \"price\": 14.0,\r\n    \"description\": \"Un festín irresistible de papas crujientes, salchichas jugosas y una variedad de salsas al mejor estilo del Crustáceo Cascarudo. La combinación perfecta que ha enamorado a clientes de todo Fondo de Bikini. Ideal para compartir o disfrutar en solitario.\"\r\n  }\r\n",
+							"raw": "[\r\n  {\r\n    \"name\": \"Cangreburger\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./cangri1.png\",\r\n    \"price\": 18.0,\r\n    \"description\": \"La especialidad de la casa: una receta secreta que ha conquistado los corazones de Fondo de Bikini.\"\r\n  },\r\n  {\r\n    \"name\": \"Cangreburger Doble Carne\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./cangri2.png\",\r\n    \"price\": 25.0,\r\n    \"description\": \"El doble de sabor, el doble de felicidad con salsa secreta.\"\r\n  },\r\n  {\r\n    \"name\": \"Cangreburger Triple Deluxe\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./cangri3.png\",\r\n    \"price\": 30.0,\r\n    \"description\": \"Tres niveles de perfección absoluta.\"\r\n  },\r\n  {\r\n    \"name\": \"Perro Cascarudo\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./perro.png\",\r\n    \"price\": 15.0,\r\n    \"description\": \"Versión marina del clásico perro caliente.\"\r\n  },\r\n  {\r\n    \"name\": \"Pizza\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./pizza.png\",\r\n    \"price\": 22.0,\r\n    \"description\": \"Pizza con extra queso y especias submarinas.\"\r\n  },\r\n  {\r\n    \"name\": \"Salchipapas\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./salchipapas.png\",\r\n    \"price\": 14.0,\r\n    \"description\": \"Papas crujientes con salchichas y salsas.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #1\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo1.png\",\r\n    \"price\": 25.0,\r\n    \"description\": \"Cangreburger + papas + soda.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #2\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo2.png\",\r\n    \"price\": 28.0,\r\n    \"description\": \"Cangreburger doble + acompañamiento + malteada.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #3\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo3.png\",\r\n    \"price\": 30.0,\r\n    \"description\": \"Cangreburger triple + soda + papas criollas.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #4\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo4.png\",\r\n    \"price\": 27.0,\r\n    \"description\": \"Perro caliente + papas + malteada.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #5\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo5.png\",\r\n    \"price\": 29.0,\r\n    \"description\": \"Cangreburger doble + criollas + soda especial.\"\r\n  },\r\n  {\r\n    \"name\": \"Combo #6\",\r\n    \"category\": \"principal\",\r\n    \"image\": \"./combo6.png\",\r\n    \"price\": 32.0,\r\n    \"description\": \"Pizza + ensalada + bebida.\"\r\n  },\r\n  {\r\n    \"name\": \"Aros de Cebolla\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./aroscebolla.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Crujientes con mezcla secreta.\"\r\n  },\r\n  {\r\n    \"name\": \"Yucas Fritas\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./yuca.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Crujientes por fuera y suaves por dentro.\"\r\n  },\r\n  {\r\n    \"name\": \"Papas Fritas\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./papas.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Las papas más famosas del Crustáceo Cascarudo.\"\r\n  },\r\n  {\r\n    \"name\": \"Ensalada\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./ensalada.png\",\r\n    \"price\": 7.0,\r\n    \"description\": \"Mezcla fresca con algas y aderezo cascarudo.\"\r\n  },\r\n  {\r\n    \"name\": \"Papas Criollas\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./criollas.png\",\r\n    \"price\": 7.0,\r\n    \"description\": \"Doradas, sabor intenso y muy local.\"\r\n  },\r\n  {\r\n    \"name\": \"Brócoli\",\r\n    \"category\": \"acompañamientos\",\r\n    \"image\": \"./brocoli.png\",\r\n    \"price\": 7.0,\r\n    \"description\": \"Brócoli al vapor con mantequilla cascaruda.\"\r\n  },\r\n  {\r\n    \"name\": \"Malteada de Fresa\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./malteada1.png\",\r\n    \"price\": 10.0,\r\n    \"description\": \"Malteada de fresa con frutas frescas.\"\r\n  },\r\n  {\r\n    \"name\": \"Malteada de Chocolate\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./malteada2.png\",\r\n    \"price\": 10.0,\r\n    \"description\": \"Chocolate premium submarino.\"\r\n  },\r\n  {\r\n    \"name\": \"Malteada de Vainilla\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./malteada3.png\",\r\n    \"price\": 10.0,\r\n    \"description\": \"Vainilla premium y textura suave.\"\r\n  },\r\n  {\r\n    \"name\": \"Soda Neptuna\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./soda1.png\",\r\n    \"price\": 8.0,\r\n    \"description\": \"Burbujeante con esencia de medusas.\"\r\n  },\r\n  {\r\n    \"name\": \"Soda Coralina\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./soda2.png\",\r\n    \"price\": 8.0,\r\n    \"description\": \"Dulce a frutas frescas del arrecife.\"\r\n  },\r\n  {\r\n    \"name\": \"Soda de Medusa\",\r\n    \"category\": \"bebidas\",\r\n    \"image\": \"./soda3.png\",\r\n    \"price\": 8.0,\r\n    \"description\": \"Refrescante con burbujas marinas.\"\r\n  },\r\n  {\r\n    \"name\": \"Postre Cascarudo\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./postre.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Suave, dulce y con receta secreta.\"\r\n  },\r\n  {\r\n    \"name\": \"Pastel de Vainilla\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./pvainilla.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Bizcocho esponjoso con crema de vainilla.\"\r\n  },\r\n  {\r\n    \"name\": \"Pastel de Chocolate\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./pchocolate.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Pastel húmedo e intenso con chocolate premium.\"\r\n  },\r\n  {\r\n    \"name\": \"Pastel de Fresa\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./pfresa.png\",\r\n    \"price\": 6.0,\r\n    \"description\": \"Pastel dulce con fresas frescas.\"\r\n  },\r\n  {\r\n    \"name\": \"Postre Coralino\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./postre2.png\",\r\n    \"price\": 6.5,\r\n    \"description\": \"Toque tropical con frutas exóticas.\"\r\n  },\r\n  {\r\n    \"name\": \"Delicia Neptuna\",\r\n    \"category\": \"postres\",\r\n    \"image\": \"./postre3.png\",\r\n    \"price\": 7.0,\r\n    \"description\": \"Postre elegante y sofisticado.\"\r\n  }\r\n]\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{PRODUCTMS}}/product"
+						"url": "{{PRODUCTMS}}/product/bulk"
 					},
 					"response": []
 				},
