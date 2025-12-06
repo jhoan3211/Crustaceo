@@ -19,8 +19,8 @@ public class OrderDetailResponse {
 
     private ProductResponse product;
 
-    private Long quantity;
+    private Integer quantity;
 
     private BigDecimal subtotal;
-    
+
 }

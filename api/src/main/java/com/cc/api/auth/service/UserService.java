@@ -76,9 +76,8 @@ public class UserService implements UserDetailsService {
                         .build();
         }
 
-        public Long getIdByEmail(String email) {
+        public UserEntity getIdByEmail(String email) {
                 return userRepository.findByEmail(email)
-                        .map(UserEntity::getId)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 

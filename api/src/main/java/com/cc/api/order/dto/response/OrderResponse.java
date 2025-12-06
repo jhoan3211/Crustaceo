@@ -1,6 +1,6 @@
 package com.cc.api.order.dto.response;
 
-import com.cc.api.auth.dto.response.UserResponse;
+import com.cc.api.auth.dto.response.UserOrderResponse;
 import com.cc.api.order.Enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class OrderResponse {
 
     private OrderStatus status;
 
-    private UserResponse user;
+    private UserOrderResponse user;
 
     private LocalDateTime createdAt;
 

@@ -53,7 +53,7 @@ CREATE TABLE order_detail (
     id VARCHAR(255) PRIMARY KEY,
     order_id BIGINT NOT NULL REFERENCES orders(id),
     product_id BIGINT NOT NULL REFERENCES product(id),
-    quantity BIGINT NOT NULL,
+    quantity INT NOT NULL,
     subtotal DECIMAL(19,2)
 );
 

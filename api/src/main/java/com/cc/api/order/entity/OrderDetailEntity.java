@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 public class OrderDetailEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +27,7 @@ public class OrderDetailEntity {
     private ProductEntity product;
 
     @Column(nullable = false)
-    private Long quantity;
+    private Integer quantity;
 
     @Column(precision = 19, scale = 2)
     private BigDecimal subtotal;

@@ -5,6 +5,7 @@ import com.cc.api.product.dto.response.ProductResponse;
 import com.cc.api.product.entity.ProductEntity;
 import com.cc.api.product.mapper.ProductMapper;
 import com.cc.api.product.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,11 @@ public class ProductService {
     public List<ProductResponse> getAllProducts() {
         List<ProductEntity> entities = productRepository.findAll();
         return productMapper.toResponse(entities);
+    }
+
+    public ProductEntity findById(Long productId) {
+        return productRepository.findById(productId).orElseThrow(() ->
+                new EntityNotFoundException("Product not found with id: " + productId)
+        );
     }
 }

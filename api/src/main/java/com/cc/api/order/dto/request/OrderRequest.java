@@ -1,6 +1,9 @@
 package com.cc.api.order.dto.request;
 
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderRequest {
 
+    @NotBlank(message = "La dirección es obligatoria")
     private String address;
 
-    private List<OrderDetailRequest> OrderDetail;
+    @Valid
+    @NotEmpty(message = "Debe contener al menos un producto")
+    private List<OrderDetailRequest> orderDetails;
 
 }

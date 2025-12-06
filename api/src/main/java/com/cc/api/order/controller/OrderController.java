@@ -1,5 +1,6 @@
 package com.cc.api.order.controller;
 
+import com.cc.api.auth.entity.UserEntity;
 import com.cc.api.order.dto.request.OrderRequest;
 import com.cc.api.order.dto.response.OrderResponse;
 import com.cc.api.order.service.OrderService;
@@ -24,18 +25,10 @@ public class OrderController {
     @PreAuthorize("hasRole('CUSTOMER')")
     @PostMapping()
     public ResponseEntity<OrderResponse> create(@Valid @RequestBody OrderRequest order) {
-        OrderResponse response = orderService.create(order);
+        String email = getMyEmail();
+        OrderResponse response = orderService.create(order, email);
         return ResponseEntity.ok(response);
     }
-    /*
-    @PreAuthorize("hasRole('CUSTOMER')")
-    @GetMapping()
-    public ResponseEntity<OrderResponse> create() {
-        OrderResponse response = orderService.getOrder();
-        return ResponseEntity.ok(response);
-    }
-
-    */
 
     @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping
