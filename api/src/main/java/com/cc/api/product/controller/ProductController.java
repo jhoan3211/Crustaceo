@@ -21,8 +21,8 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest user) {
-        ProductResponse response = productService.create(user);
+    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest product) {
+        ProductResponse response = productService.create(product);
         return ResponseEntity.ok(response);
     }
 
@@ -39,6 +39,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/bulk")
+    public ResponseEntity<List<ProductResponse>> create(@Valid @RequestBody List<ProductRequest> products) {
+        List<ProductResponse> response = productService.create(products);
+        return ResponseEntity.ok(response);
+    }
 
 
 }

@@ -7,7 +7,6 @@ import com.cc.api.product.mapper.ProductMapper;
 import com.cc.api.product.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +28,20 @@ public class ProductService {
         return productMapper.toResponse(saved);
     }
 
+    public List<ProductResponse> create(List<ProductRequest> productRequests) {
+
+        List<ProductEntity> entities = productRequests.stream()
+                .map(productMapper::toEntity)
+                .toList();
+
+        List<ProductEntity> savedEntities = productRepository.saveAll(entities);
+
+        return productMapper.toResponse(savedEntities);
+    }
+
     public void deleteProductById(Long productId) {
         productRepository.deleteById(productId);
     }
-
 
     public List<ProductResponse> getAllProducts() {
         List<ProductEntity> entities = productRepository.findAll();
