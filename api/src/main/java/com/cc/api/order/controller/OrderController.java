@@ -1,10 +1,8 @@
 package com.cc.api.order.controller;
 
-import com.cc.api.auth.entity.UserEntity;
 import com.cc.api.order.dto.request.OrderRequest;
 import com.cc.api.order.dto.response.OrderResponse;
 import com.cc.api.order.service.OrderService;
-import com.cc.api.product.dto.response.ProductResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
