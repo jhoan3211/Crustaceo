@@ -33,14 +33,14 @@ public class OrderService {
 
 
     public List<OrderResponse> getOrdersByEmail(String email) {
-        Long userId = userService.getIdByEmail(email).getId();
+        Long userId = userService.getUserByEmail(email).getId();
         List<OrderEntity> orders = orderRepository.findByUserId(userId);
 
         return orderMapper.toResponse(orders);
     }
 
     public List<OrderResponse> getActiveOrdersByEmail(String email) {
-        Long userId = userService.getIdByEmail(email).getId();
+        Long userId = userService.getUserByEmail(email).getId();
         List<OrderEntity> orders =
                 orderRepository.findByUserIdAndStatusIn(
                 userId,
@@ -63,7 +63,7 @@ public class OrderService {
     @Transactional
     public OrderResponse create(OrderRequest orderRequest, String email) {
 
-        UserEntity user = userService.getIdByEmail(email);
+        UserEntity user = userService.getUserByEmail(email);
         OrderEntity order = buildBaseOrder(orderRequest, user);
         List<OrderDetailEntity> details = buildOrderDetails(orderRequest, order);
         BigDecimal total = calculateTotal(details);
