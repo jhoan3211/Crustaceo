@@ -14,15 +14,7 @@ public enum OrderStatus {
     // Cliente recibió correctamente
     DELIVERED,
 
-    // Cliente no estaba / no se pudo entregar
-    DELIVERY_FAILED,
-
     // Cliente canceló la orden antes del envío
     CANCELED,
 
-    // Reintegro realizado
-    REFUNDED,
-
-    // Pedido devuelto
-    RETURNED
 }

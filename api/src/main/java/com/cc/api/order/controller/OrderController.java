@@ -2,8 +2,10 @@ package com.cc.api.order.controller;
 
 import com.cc.api.order.dto.request.OrderRequest;
 import com.cc.api.order.dto.response.OrderResponse;
+import com.cc.api.order.enums.OrderStatus;
 import com.cc.api.order.service.OrderService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,6 +59,32 @@ public class OrderController {
 
         return ResponseEntity.ok(orders);
     }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/cancel/{orderId}")
+    public ResponseEntity<OrderResponse> cancelOrder(@PathVariable Long orderId)  {
+        OrderResponse order = orderService.cancelOrder(orderId);
+        return ResponseEntity.ok(order);
+    }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{orderId}")
+        public ResponseEntity<OrderResponse> changeStateOrder(@PathVariable Long orderId, @RequestParam OrderStatus status )  {
+        OrderResponse order = orderService.changeStateOrder(orderId,status);
+        return ResponseEntity.ok(order);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponse> getOrder(@PathVariable Long orderId)  {
+        OrderResponse order = orderService.getOrder(orderId);
+        return ResponseEntity.ok(order);
+    }
+
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all/active")

@@ -12,6 +12,7 @@ import com.cc.api.order.mapper.OrderMapper;
 import com.cc.api.order.repository.OrderRepository;
 import com.cc.api.product.entity.ProductEntity;
 import com.cc.api.product.service.ProductService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -130,4 +132,55 @@ public class OrderService {
     }
 
 
+
+
+    public OrderResponse changeStateOrder(Long orderId, OrderStatus status) {
+        OrderEntity order = getOrderById(orderId);
+
+        if (isFinalState(order.getStatus())) {
+            throw new IllegalStateException("La orden ya está en un estado final y no puede modificarse.");
+        }
+
+        order.setStatus(status);
+        orderRepository.save(order);
+
+        return orderMapper.toResponse(order);
+    }
+
+    public OrderResponse cancelOrder(Long orderId) {
+        OrderEntity order = getOrderById(orderId);
+
+        if (isFinalState(order.getStatus())) {
+            throw new IllegalStateException("La orden ya está en un estado final y no puede modificarse.");
+        }
+
+        if (isReady(order.getStatus())) {
+            throw new IllegalStateException("La orden ya está casi lista y no puede modificarse.");
+        }
+
+        order.setStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
+
+        return orderMapper.toResponse(order);
+    }
+
+    private OrderEntity getOrderById(Long orderId){
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Orden no encotrada."));
+    }
+
+
+
+    private boolean isFinalState(OrderStatus status) {
+        return status == OrderStatus.CANCELED || status == OrderStatus.DELIVERED;
+    }
+
+    private boolean isReady(OrderStatus status){
+        return status == OrderStatus.PREPARATION || status == OrderStatus.DELIVERED || status == OrderStatus.OUT_FOR_DELIVERY;
+    }
+
+    public OrderResponse getOrder(Long orderId) {
+        OrderEntity order = getOrderById(orderId);
+        return orderMapper.toResponse(order);
+    }
 }
