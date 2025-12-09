@@ -54,6 +54,21 @@ public class OrderService {
         return orderMapper.toResponse(orders);
     }
 
+    public List<OrderResponse> getActiveOrders() {
+        List<OrderEntity> orders =
+                orderRepository.findAllByStatusIn(
+                        List.of(
+                                OrderStatus.PENDING,
+                                OrderStatus.PREPARATION,
+                                OrderStatus.OUT_FOR_DELIVERY
+                        )
+                );
+
+        return orderMapper.toResponse(orders);
+    }
+
+
+
     public List<OrderResponse> getAllOrders(){
         List<OrderEntity> orders = orderRepository.findAll();
 

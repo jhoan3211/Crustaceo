@@ -58,6 +58,14 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/all/active")
+    public ResponseEntity<List<OrderResponse>> getActiveOrders()  {
+        List<OrderResponse> orders = orderService.getActiveOrders();
+
+        return ResponseEntity.ok(orders);
+    }
+
 
 
     private String getMyEmail() {
