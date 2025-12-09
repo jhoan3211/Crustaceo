@@ -90,23 +90,13 @@ public class UserService implements UserDetailsService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 
-
-        private UserResponse buildUserResponse(UserEntity user) {
-                return UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .email(user.getEmail())
-                        .role(user.getRole())
-                        .build();
-        }
-
-
         @Transactional
         public UserResponse claimAdmin(String email, ClaimAdminRequest request) {
 
                 if (request == null || request.getCode() == null || request.getCode().isBlank()) {
                         throw new IllegalArgumentException("Debes enviar el código secreto");
                 }
+
                 UserEntity user = getUserByEmail(email);
 
                 if (upgradeCodeHash == null || upgradeCodeHash.isBlank()) {
@@ -129,5 +119,14 @@ public class UserService implements UserDetailsService {
 
         public List<UserResponse> getAllUsers() {
                 return userMapper.toResponse(userRepository.findAll());
+        }
+
+        private UserResponse buildUserResponse(UserEntity user) {
+                return UserResponse.builder()
+                        .id(user.getId())
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .role(user.getRole())
+                        .build();
         }
 }

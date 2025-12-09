@@ -20,7 +20,7 @@ public class OrderController {
     private final OrderService orderService;
 
 
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
     @PostMapping()
     public ResponseEntity<OrderResponse> create(@Valid @RequestBody OrderRequest order) {
         String email = getMyEmail();
@@ -28,7 +28,7 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
     @GetMapping
     public ResponseEntity<List<OrderResponse>> getMyOrders()  {
         String email = getMyEmail();
@@ -39,7 +39,7 @@ public class OrderController {
 
 
 
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
     @GetMapping("/active")
     public ResponseEntity<List<OrderResponse>> getMyActiveOrders()  {
         String email = getMyEmail();
