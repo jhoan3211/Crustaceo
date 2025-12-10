@@ -32,8 +32,7 @@ public class ProductController {
         productService.deleteProductById(productId);
         return ResponseEntity.noContent().build();
     }
-    
-    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
+
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());

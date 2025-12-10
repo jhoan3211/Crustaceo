@@ -69,7 +69,6 @@ public class OrderController {
     }
 
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{orderId}")
         public ResponseEntity<OrderResponse> changeStateOrder(@PathVariable Long orderId, @RequestParam OrderStatus status )  {
