@@ -61,7 +61,7 @@ public class OrderController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
     @PutMapping("/cancel/{orderId}")
     public ResponseEntity<OrderResponse> cancelOrder(@PathVariable Long orderId)  {
         OrderResponse order = orderService.cancelOrder(orderId);
