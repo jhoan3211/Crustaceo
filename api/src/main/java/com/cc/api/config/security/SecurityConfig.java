@@ -55,7 +55,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/product"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -68,7 +69,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 
 
     @Bean

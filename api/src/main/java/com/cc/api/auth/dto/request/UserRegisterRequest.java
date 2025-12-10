@@ -12,17 +12,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRegisterRequest {
 
+    private static final String BLOCK_PLANKTON_REGEX =
+            "^(?!.*(?i)p+[^a-zA-Z0-9]*[l1!]+[^a-zA-Z0-9]*[a4áàä]+[^a-zA-Z0-9]*[nñ]+[^a-zA-Z0-9]*[ckq]+[^a-zA-Z0-9]*t+[^a-zA-Z0-9]*[o0óòö]+[^a-zA-Z0-9]*n+).*$";
+
     @NotBlank(message = "El nombre es obligatorio")
     @Pattern(
-            regexp = "^(?!.*(?i)plankton).*$",
-            message = "La formula no te pertenece"
+            regexp = BLOCK_PLANKTON_REGEX,
+            message = "La fórmula no te pertenece"
     )
     private String name;
 
-    @Email(message = "el correo no tiene formato de Email")
+    @Email(message = "El correo no tiene formato de Email")
     @Pattern(
-            regexp = "^(?!.*(?i)plankton).*$",
-            message = "La formula no te pertenece"
+            regexp = BLOCK_PLANKTON_REGEX,
+            message = "La fórmula no te pertenece"
     )
     private String email;
 
